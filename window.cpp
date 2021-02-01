@@ -17,6 +17,10 @@ namespace vxe {
         }
     }
 
+    bool Window::isKeyPressed(int key) {
+        return (glfwGetKey(_window, key) == GLFW_PRESS);
+    }
+
     void Window::_initWindow() {
         glfwInit();
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);

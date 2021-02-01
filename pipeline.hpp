@@ -1,6 +1,7 @@
 #pragma once
 
 #include "device.hpp"
+#include "mesh.hpp"
 
 #include <string>
 #include <vector>

@@ -1,6 +1,6 @@
 include .env
 
-CFLAGS = -std=c++17  -I$(VULKAN_SDK_PATH)/include -I${HOMEBREW_LIBS_PATH}/include 
+CFLAGS = -std=c++17  -I$(VULKAN_SDK_PATH)/include -I${HOMEBREW_LIBS_PATH}/include
 LDFLAGS = -L$(VULKAN_SDK_PATH)/lib -lvulkan `pkg-config --static --libs glfw3` 
 
 # create list of all spv files and set as dependency

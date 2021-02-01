@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cassert>
 
+
 namespace vxe
 {
     Pipeline::Pipeline(Device &device, const std::string &vertFilePath, const std::string &fragFilePath, const PipelineConfigInfo &configInfo) : _device(device)
@@ -71,12 +72,14 @@ namespace vxe
         shaderStages[1].pNext = nullptr;
         shaderStages[1].pSpecializationInfo = nullptr;
 
+        VertexInputDescription vertexDescription = Vertex::getVertexDescription();
+
         VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
         vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-        vertexInputInfo.vertexBindingDescriptionCount = 0;
-        vertexInputInfo.pVertexBindingDescriptions = nullptr;
-        vertexInputInfo.vertexAttributeDescriptionCount = 0;
-        vertexInputInfo.pVertexAttributeDescriptions = nullptr;
+        vertexInputInfo.vertexBindingDescriptionCount = vertexDescription.bindings.size();
+        vertexInputInfo.pVertexBindingDescriptions = vertexDescription.bindings.data();
+        vertexInputInfo.vertexAttributeDescriptionCount = vertexDescription.attributes.size();
+        vertexInputInfo.pVertexAttributeDescriptions = vertexDescription.attributes.data();
 
         VkPipelineViewportStateCreateInfo viewportInfo{};
         viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
