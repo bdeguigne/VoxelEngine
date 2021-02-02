@@ -1,5 +1,6 @@
 #include "engine.hpp"
 
+
 #define VMA_IMPLEMENTATION
 #include "lib/vk_mem_alloc.h"
 
@@ -22,6 +23,7 @@ namespace vxe
     {
         vkDestroyPipelineLayout(_device.device(), _pipelineLayout, nullptr);
         vmaDestroyBuffer(_allocator, _triangleMesh.vertexBuffer._buffer, _triangleMesh.vertexBuffer._allocation);
+        vmaDestroyBuffer(_allocator, _room.vertexBuffer._buffer, _room.vertexBuffer._allocation);
         vmaDestroyAllocator(_allocator);
     }
 
@@ -138,7 +140,7 @@ namespace vxe
             _pipeline->bind(_commandBuffers[i]);
 
             VkDeviceSize offset = 0;
-            vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &_triangleMesh.vertexBuffer._buffer, &offset);
+            vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &_room.vertexBuffer._buffer, &offset);
 
             //make a model view matrix for rendering the object
             //camera position
@@ -160,7 +162,7 @@ namespace vxe
             //upload the matrix to the GPU via pushconstants
             vkCmdPushConstants(_commandBuffers[i], _pipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(MeshPushConstants), &constants);
 
-            vkCmdDraw(_commandBuffers[i], _triangleMesh.vertices.size(), 1, 0, 0);
+            vkCmdDraw(_commandBuffers[i], _room.vertices.size(), 1, 0, 0);
 
             vkCmdEndRenderPass(_commandBuffers[i]);
 
@@ -206,7 +208,10 @@ namespace vxe
         _triangleMesh.vertices[1].color = {0.f, 1.f, 0.0f}; //pure green
         _triangleMesh.vertices[2].color = {0.f, 1.f, 0.0f}; //pure green
 
+        _room.loadFromObj("./assets/viking_room.obj");
+
         _uploadMesh(_triangleMesh);
+        _uploadMesh(_room);
     }
 
     void Engine::_uploadMesh(Mesh &mesh)

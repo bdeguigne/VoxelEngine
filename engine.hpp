@@ -52,6 +52,7 @@ namespace vxe
 
         VmaAllocator _allocator;
         Mesh _triangleMesh;
+        Mesh _room;
 
         int _frameNumber = 0;
 

@@ -1,8 +1,11 @@
 #pragma once
 
 #include "types.hpp"
-#include <vector>
+
 #include <glm/vec3.hpp>
+
+
+#include <vector>
 
 struct VertexInputDescription
 {
@@ -21,13 +24,13 @@ struct Vertex
     static VertexInputDescription getVertexDescription();
 };
 
-
-
 namespace vxe
 {
     class Mesh
     {
     public:
+        bool loadFromObj(const char *filename);
+
         std::vector<Vertex> vertices;
         AllocatedBuffer vertexBuffer;
     };
