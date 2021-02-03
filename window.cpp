@@ -21,11 +21,17 @@ namespace vxe {
         return (glfwGetKey(_window, key) == GLFW_PRESS);
     }
 
+    void Window::getMousePos(double *mouseX, double *mouseY) {
+        glfwGetCursorPos(_window, mouseX, mouseY);
+    }
+
     void Window::_initWindow() {
         glfwInit();
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
         _window = glfwCreateWindow(_width, _height, _windowName.c_str(), nullptr, nullptr);
+
+        glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
 }

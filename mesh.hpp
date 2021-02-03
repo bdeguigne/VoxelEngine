@@ -4,7 +4,6 @@
 
 #include <glm/vec3.hpp>
 
-
 #include <vector>
 
 struct VertexInputDescription

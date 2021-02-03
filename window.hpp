@@ -16,11 +16,14 @@ namespace vxe
         Window(const Window &) = delete;
         Window &operator=(const Window &) = delete;
 
+        void close() { glfwSetWindowShouldClose(_window, GLFW_TRUE); }
+
         bool shouldClose() { return glfwWindowShouldClose(_window); };
         VkExtent2D getExtent() { return {static_cast<uint32_t>(_width), static_cast<uint32_t>(_height)}; }
         void createWindowSurface(VkInstance instance, VkSurfaceKHR *surface);
 
         bool isKeyPressed(int key);
+        void getMousePos(double *mouseX, double *mouseY);
 
     private:
         void
