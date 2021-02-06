@@ -88,9 +88,9 @@ namespace vxe
 
     VkApplicationInfo appInfo = {};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    appInfo.pApplicationName = "LittleVulkanEngine App";
+    appInfo.pApplicationName = "VoxelEngine";
     appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-    appInfo.pEngineName = "No Engine";
+    appInfo.pEngineName = "Vxe";
     appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
     appInfo.apiVersion = VK_API_VERSION_1_0;
 
@@ -469,7 +469,7 @@ namespace vxe
     throw std::runtime_error("failed to find suitable memory type!");
   }
 
-  void Device::createBuffer(
+  VkDeviceSize Device::createBuffer(
       VkDeviceSize size,
       VkBufferUsageFlags usage,
       VkMemoryPropertyFlags properties,
@@ -501,6 +501,8 @@ namespace vxe
     }
 
     vkBindBufferMemory(device_, buffer, bufferMemory, 0);
+
+    return bufferInfo.size;
   }
 
   VkCommandBuffer Device::beginSingleTimeCommands()
